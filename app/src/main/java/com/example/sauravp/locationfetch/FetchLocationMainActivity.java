@@ -72,6 +72,7 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
                 Toast.makeText(getApplicationContext(), "Writing to File stopped!", Toast.LENGTH_SHORT).show();
                 isStopClicked = true;
                 stopWritingToFileandAppendFiles();
+                Toast.makeText(getApplicationContext(),"Find the GPX file at: /Download",Toast.LENGTH_LONG).show();
             }
         });
         but3.setOnClickListener(new View.OnClickListener() {
