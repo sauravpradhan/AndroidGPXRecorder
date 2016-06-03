@@ -24,6 +24,9 @@ User should be on the location where the device can communicate easily to GPS.
 
 #ToDo's
 1) Show current location Latitude and Longitude in text in the homescreen of the app.
+
 2) Make GPX schema proper.
+
 3) Test it with most of the websites that takes GPX data.
+
 Would be happy if somebody wants to take this up forking the repo.
