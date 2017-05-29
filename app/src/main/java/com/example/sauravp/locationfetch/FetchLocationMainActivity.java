@@ -11,9 +11,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.system.Os;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +32,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class FetchLocationMainActivity extends Activity implements LocationListener {
     Button but1;
@@ -47,6 +51,19 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fetch_location_main);
+        Log.d("s@urav","Saurav Version is:"+Build.VERSION.SDK_INT);
+        if(Build.VERSION.SDK_INT > 23)
+        {
+            int permissionCheck1 = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION);
+           /* int permissionCheck2 = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+            Log.d("s@urav","Permission Check 1:"+permissionCheck1+" Permisison Check 2"+permissionCheck2);*/
+
+            if(permissionCheck1 != 1/* && permissionCheck2 !=1*/){
+                askForPermission(Manifest.permission.ACCESS_COARSE_LOCATION,2);
+            }
+        }
         but1 = (Button) findViewById(R.id.button);
         but2 = (Button) findViewById(R.id.button2);
         but3 = (Button) findViewById(R.id.button3);
@@ -270,5 +287,20 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
             }
         }
         return bestLocation;
+    }
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            }
+        } else {
+            Toast.makeText(this, "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
