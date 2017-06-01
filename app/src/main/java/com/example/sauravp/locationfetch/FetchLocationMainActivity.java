@@ -56,13 +56,21 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
         {
             int permissionCheck1 = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION);
-           /* int permissionCheck2 = ContextCompat.checkSelfPermission(this,
+            int permissionCheck2 = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION);
-            Log.d("s@urav","Permission Check 1:"+permissionCheck1+" Permisison Check 2"+permissionCheck2);*/
-
+            Log.d("s@urav","Permission Check 1:"+permissionCheck1+" Permisison Check 2"+permissionCheck2);
+            String[] permission = {"Manifest.permission.ACCESS_COARSE_LOCATION", "Manifest.permission.WRITE_EXTERNAL_STORAGE"};
             if(permissionCheck1 != 1/* && permissionCheck2 !=1*/){
-                askForPermission(Manifest.permission.ACCESS_COARSE_LOCATION,2);
+                //askForPermission(Manifest.permission.ACCESS_COARSE_LOCATION,2);
             }
+            if(permissionCheck2 != 1){
+                //askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,3);
+            }
+            int locationpermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            int storagepermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            Log.d("saurav","s@urav locationpermissionCheck "+locationpermissionCheck + " storagepermissionCheck"+storagepermissionCheck);
+            if(locationpermissionCheck != 1)
+                askForPermission(Manifest.permission.ACCESS_COARSE_LOCATION,1);
         }
         but1 = (Button) findViewById(R.id.button);
         but2 = (Button) findViewById(R.id.button2);
@@ -76,7 +84,10 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
                 but1.setVisibility(View.INVISIBLE);
                 but2.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(), "Writing to File started!", Toast.LENGTH_SHORT).show();
-
+                int storagepermissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if(storagepermissionCheck != 1)
+                    askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,1);
                 startWritingToFile();
 
             }
@@ -292,10 +303,12 @@ public class FetchLocationMainActivity extends Activity implements LocationListe
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            if (/*ActivityCompat.shouldShowRequestPermissionRationale(this, permission)*/false) {
+                Log.d("saurav","s@urav shouldShowRequestPermissionRationale");
                 ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
 
             } else {
+                Log.d("saurav","s@urav shouldNOTShowRequest");
 
                 ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
             }
