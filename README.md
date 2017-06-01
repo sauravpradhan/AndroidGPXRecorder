@@ -5,7 +5,7 @@ Provide user with GPX file of the locations he/she travels after starting loggin
 Just a simple utility app. Anybody wants to get Location updates and plot them in maps, this is an application to do the same.
 
 #How to use it?
-1) Download Apk directly from https://drive.google.com/file/d/0Byaspar4S5SEcURJZWhfMnpqQUE/view?usp=sharing
+1) Download Apk directly from https://drive.google.com/file/d/0Byaspar4S5SEcURJZWhfMnpqQUE/view
 
 2) Click on "Start Logging" and let the phone do the job.
 
